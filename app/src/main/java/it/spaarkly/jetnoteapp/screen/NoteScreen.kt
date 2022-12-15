@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import it.spaarkly.jetnoteapp.R
 import it.spaarkly.jetnoteapp.components.NoteButton
+import it.spaarkly.jetnoteapp.components.NoteInputField
 import it.spaarkly.jetnoteapp.components.NoteInputText
 import it.spaarkly.jetnoteapp.data.NotesDataSource
 import it.spaarkly.jetnoteapp.model.Note
@@ -40,34 +41,34 @@ fun NoteScreen(
         mutableStateOf("")
     }
     val context = LocalContext.current
-    Column {
+    Column() {
         TopAppBar(title = {
             Text(stringResource(id = R.string.app_name))
         }, actions = {
             Icon(imageVector = Icons.Rounded.Notifications, contentDescription = "Icon")
         },
-        backgroundColor = Color(0xFFDADFE3)
+        backgroundColor = MaterialTheme.colors.background
         )
 
         //Content
-        Column(modifier = Modifier.fillMaxWidth(),
+        Column(modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
-            NoteInputText(modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
-                text = title,
-                label = "Title",
-                onTextChange = {
+            NoteInputField(modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
+                value = title,
+                labelId = "Title",
+                onChange = {
                 if(it.all { char ->
                         char.isLetter() || char.isWhitespace()
                     }) title = it
             })
-            NoteInputText(modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
-                text = description,
-                label = "Add a note",
-                onTextChange = {
+            NoteInputField(modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
+                value = description,
+                labelId = "Add a note",
+                onChange = {
                     if(it.all { char ->
                             char.isLetter() || char.isWhitespace()
                         }) description = it
-            })
+                })
             NoteButton(text = "Save", onClick = {
                 if(title.isNotBlank() && description.isNotBlank()) {
                     onAddNote(Note(title = title, description = description))
@@ -78,7 +79,7 @@ fun NoteScreen(
             })
         }
         Divider(modifier = Modifier.padding(10.dp))
-        LazyColumn{
+        LazyColumn(){
             items(notes) {note->
                 NoteRow(note = note,
                     onNoteClicked = {
@@ -96,7 +97,7 @@ fun NoteRow(modifier: Modifier = Modifier, note : Note, onNoteClicked : (Note)->
             .fillMaxWidth()
             .padding(4.dp)
             .clip(RoundedCornerShape(topEnd = 33.dp, bottomStart = 33.dp)),
-    color = Color(0xffdfe6eb),
+    color = MaterialTheme.colors.secondary,
     elevation = 6.dp) {
         Column(
             modifier
