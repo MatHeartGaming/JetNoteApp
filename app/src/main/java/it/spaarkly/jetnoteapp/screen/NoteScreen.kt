@@ -1,5 +1,6 @@
 package it.spaarkly.jetnoteapp.screen
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import it.spaarkly.jetnoteapp.components.NoteInputField
 import it.spaarkly.jetnoteapp.components.NoteInputText
 import it.spaarkly.jetnoteapp.data.NotesDataSource
 import it.spaarkly.jetnoteapp.model.Note
+import it.spaarkly.jetnoteapp.util.formatDate
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -51,7 +53,9 @@ fun NoteScreen(
         )
 
         //Content
-        Column(modifier = Modifier.fillMaxWidth().padding(16.dp),
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
             NoteInputField(modifier = Modifier.padding(top = 9.dp, bottom = 8.dp),
                 value = title,
@@ -106,7 +110,7 @@ fun NoteRow(modifier: Modifier = Modifier, note : Note, onNoteClicked : (Note)->
         horizontalAlignment = Alignment.Start) {
             Text(text = note.title, style = MaterialTheme.typography.subtitle2)
             Text(text = note.description, style = MaterialTheme.typography.subtitle1)
-            Text(text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d MMM")),
+            Text(text = formatDate(note.entryDate.time),
             style = MaterialTheme.typography.caption)
         }
     }
