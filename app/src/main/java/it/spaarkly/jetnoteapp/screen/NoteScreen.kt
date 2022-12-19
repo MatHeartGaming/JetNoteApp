@@ -1,6 +1,5 @@
 package it.spaarkly.jetnoteapp.screen
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,11 +22,9 @@ import androidx.compose.ui.unit.dp
 import it.spaarkly.jetnoteapp.R
 import it.spaarkly.jetnoteapp.components.NoteButton
 import it.spaarkly.jetnoteapp.components.NoteInputField
-import it.spaarkly.jetnoteapp.components.NoteInputText
 import it.spaarkly.jetnoteapp.data.NotesDataSource
 import it.spaarkly.jetnoteapp.model.Note
 import it.spaarkly.jetnoteapp.util.formatDate
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun NoteScreen(
